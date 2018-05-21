@@ -381,15 +381,19 @@ public class ConsentInformation {
 
         boolean hasNonPersonalizedPublisherId = false;
         HashSet<String> nonPersonalizedAdProvidersIds = new HashSet<String>();
-        for (AdNetworkLookupResponse adNetworkLookupResponse : response.adNetworkLookupResponses) {
-            if (!adNetworkLookupResponse.isNPA) {
-                continue;
-            }
 
-            hasNonPersonalizedPublisherId = true;
-            List<String> companyIds = adNetworkLookupResponse.companyIds;
-            if (companyIds != null) {
-                nonPersonalizedAdProvidersIds.addAll(companyIds);
+        if (response.adNetworkLookupResponses != null) {
+            for (AdNetworkLookupResponse adNetworkLookupResponse :
+                response.adNetworkLookupResponses) {
+                if (!adNetworkLookupResponse.isNPA) {
+                    continue;
+                }
+
+                hasNonPersonalizedPublisherId = true;
+                List<String> companyIds = adNetworkLookupResponse.companyIds;
+                if (companyIds != null) {
+                    nonPersonalizedAdProvidersIds.addAll(companyIds);
+                }
             }
         }
 
