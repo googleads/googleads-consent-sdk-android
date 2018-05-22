@@ -21,8 +21,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -216,7 +216,11 @@ public class ConsentForm {
     private static String getAppIconURIString(Context context) {
         Drawable iconDrawable = context.getPackageManager().getApplicationIcon(context
             .getApplicationInfo());
-        Bitmap bitmap = ((BitmapDrawable) iconDrawable).getBitmap();
+        Bitmap bitmap = Bitmap.createBitmap(iconDrawable.getIntrinsicWidth(),
+            iconDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        iconDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        iconDrawable.draw(canvas);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
