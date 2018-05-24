@@ -245,7 +245,10 @@ public class ConsentForm {
         formInfo.put("is_request_in_eea_or_unknown",
             ConsentInformation.getInstance(context).isRequestLocationInEeaOrUnknown());
         formInfo.put("app_privacy_url", this.appPrivacyPolicyURL);
-        formInfo.put("consent_info", ConsentInformation.getInstance(context).loadConsentData());
+        ConsentData consentData = ConsentInformation.getInstance(context).loadConsentData();
+
+        formInfo.put("plat", consentData.getSDKPlatformString());
+        formInfo.put("consent_info", consentData);
 
         String argumentsJSON = new Gson().toJson(formInfo);
         String javascriptCommand = createJavascriptCommand("setUpConsentDialog",
@@ -322,7 +325,7 @@ public class ConsentForm {
                 consentStatus = ConsentStatus.UNKNOWN;
         }
 
-        ConsentInformation.getInstance(context).setConsentStatus(consentStatus);
+        ConsentInformation.getInstance(context).setConsentStatus(consentStatus, "form");
         listener.onConsentFormClosed(consentStatus, userPrefersAdFree);
     }
 

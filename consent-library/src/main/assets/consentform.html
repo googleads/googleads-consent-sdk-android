@@ -600,16 +600,37 @@
       var infoJSON = args['info'] || '';
 
       var formInfo;
-      var consentInfo;
-      var rawResponseJSON;
-      var rawResponse;
       try {
         formInfo = JSON.parse(infoJSON) || {};
-        consentInfo = formInfo['consent_info'] || {};
-        rawResponseJSON = consentInfo['raw_response'] || '';
+      } catch(e) {
+        formLoadCompleted('Error: consent SDK passed invalid data to the ' +
+                          'consent form. ' + e.message);
+        return;
+      }
+
+      var consentInfo = formInfo['consent_info'] || {};
+      var rawResponseJSON = consentInfo['raw_response'] || '';
+
+      if (!rawResponseJSON) {
+        var method;
+        if (formInfo['plat'] === 'ios') {
+          method = '-[PACConsentInformation ' +
+              'requestConsentInfoUpdateForPublisherIdentifiers:completionHandler:]';
+        } else {
+          method = 'com.google.ads.consent.ConsentInformation.requestConsentInfoUpdate()';
+        }
+        var message = 'Error: no information available. Successful call to ' +
+            method + ' required before using this form.';
+        formLoadCompleted(message);
+        return;
+      }
+
+      var rawResponse;
+      try {
         rawResponse = JSON.parse(rawResponseJSON) || {};
       } catch(e) {
-        formLoadCompleted('Error: invalid data. ' + e.message);
+        formLoadCompleted('Error: consent form received invalid data from ' +
+                          'the consent server. ' + e.message);
         return;
       }
 

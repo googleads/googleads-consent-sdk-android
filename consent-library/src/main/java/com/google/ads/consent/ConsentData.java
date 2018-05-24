@@ -41,6 +41,15 @@ class ConsentData {
     @SerializedName("has_any_npa_wp")
     private boolean hasNonPersonalizedPublisherId;
 
+    @SerializedName("consent_source")
+    private String consentSource;
+
+    @SerializedName("version")
+    private final String sdkVersionString = "1.0.2";
+
+    @SerializedName("plat")
+    private final String sdkPlatformString = "android";
+
     @SerializedName("raw_response")
     private String rawResponse;
 
@@ -109,6 +118,22 @@ class ConsentData {
 
     void setHasNonPersonalizedPublisherId(boolean hasNonPersonalizedPublisherId) {
         this.hasNonPersonalizedPublisherId = hasNonPersonalizedPublisherId;
+    }
+
+    public String getSDKVersionString() {
+        return this.sdkVersionString;
+    }
+
+    public String getSDKPlatformString() {
+        return this.sdkPlatformString;
+    }
+
+    public String getConsentSource() {
+        return consentSource;
+    }
+
+    public void setConsentSource(String consentSource) {
+        this.consentSource = consentSource;
     }
 
     String getRawResponse() {

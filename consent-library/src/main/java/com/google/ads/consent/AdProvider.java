@@ -16,7 +16,6 @@
 package com.google.ads.consent;
 
 import com.google.gson.annotations.SerializedName;
-import java.net.URL;
 
 /**
  * Ad provider information.
@@ -30,7 +29,7 @@ public class AdProvider {
     private String name;
 
     @SerializedName("policy_url")
-    private URL privacyPolicyUrl;
+    private String privacyPolicyUrlString;
 
     public String getId() {
         return id;
@@ -48,12 +47,12 @@ public class AdProvider {
         this.name = name;
     }
 
-    public URL getPrivacyPolicyUrl() {
-        return privacyPolicyUrl;
+    public String getPrivacyPolicyUrlString() {
+        return privacyPolicyUrlString;
     }
 
-    public void setPrivacyPolicyUrl(URL privacyPolicyUrl) {
-        this.privacyPolicyUrl = privacyPolicyUrl;
+    public void setPrivacyPolicyUrlString(String privacyPolicyUrlString) {
+        this.privacyPolicyUrlString = privacyPolicyUrlString;
     }
 
     @Override
@@ -69,14 +68,14 @@ public class AdProvider {
         AdProvider that = (AdProvider) o;
 
         return id.equals(that.id) && name.equals(that.name)
-            && privacyPolicyUrl.equals(that.privacyPolicyUrl);
+            && privacyPolicyUrlString.equals(that.privacyPolicyUrlString);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + privacyPolicyUrl.hashCode();
+        result = 31 * result + privacyPolicyUrlString.hashCode();
         return result;
     }
 }

@@ -56,7 +56,7 @@ public class ConsentInformation {
     }
     private static final String MOBILE_ADS_SERVER_URL =
             "http://adservice.google.com/getconfig/pubvendors";
-    private static final String TAG = "ContentInformation";
+    private static final String TAG = "ConsentInformation";
     private static final String PREFERENCES_FILE_KEY = "mobileads_consent";
     private static final String CONSENT_DATA_KEY = "consent_string";
     private static ConsentInformation instance;
@@ -220,6 +220,12 @@ public class ConsentInformation {
             } catch (IOException e) {
                 Log.e(TAG, e.getLocalizedMessage());
                 return null;
+            } finally {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    Log.e(TAG, e.getLocalizedMessage());
+                }
             }
 
             return strFileContents.toString();
@@ -247,11 +253,14 @@ public class ConsentInformation {
         @Override
         public ConsentInfoUpdateResponse doInBackground(Void... unused) {
             String publisherIdsString = TextUtils.join(",", this.publisherIds);
+            ConsentData consentData = consentInformation.loadConsentData();
             Uri.Builder uriBuilder =
                 Uri.parse(url)
                     .buildUpon()
                     .appendQueryParameter("pubs", publisherIdsString)
-                    .appendQueryParameter("es", "2");
+                    .appendQueryParameter("es", "2")
+                    .appendQueryParameter("plat", consentData.getSDKPlatformString())
+                    .appendQueryParameter("v", consentData.getSDKVersionString());
             if (consentInformation.isTestDevice()
                 && consentInformation.getDebugGeography()
                    != DebugGeography.DEBUG_GEOGRAPHY_DISABLED) {
@@ -425,6 +434,7 @@ public class ConsentInformation {
 
         if (!consentData.getAdProviders().equals(consentData.getConsentedAdProviders())
             || hasNonPersonalizedPublisherIdChanged) {
+            consentData.setConsentSource("sdk");
             consentData.setConsentStatus(ConsentStatus.UNKNOWN);
             consentData.setConsentedAdProviders(new HashSet<AdProvider>());
         }
@@ -462,7 +472,11 @@ public class ConsentInformation {
         return consentData.isRequestLocationInEeaOrUnknown();
     }
 
-    public synchronized void setConsentStatus(ConsentStatus consentStatus) {
+    public void setConsentStatus(ConsentStatus consentStatus) {
+        this.setConsentStatus(consentStatus, "programmatic");
+    }
+
+    protected synchronized void setConsentStatus(ConsentStatus consentStatus, String source) {
         ConsentData consentData = this.loadConsentData();
         if (consentStatus == ConsentStatus.UNKNOWN) {
             consentData.setConsentedAdProviders(new HashSet<AdProvider>());
@@ -470,6 +484,7 @@ public class ConsentInformation {
             consentData.setConsentedAdProviders(consentData.getAdProviders());
         }
 
+        consentData.setConsentSource(source);
         consentData.setConsentStatus(consentStatus);
         this.saveConsentData(consentData);
     }

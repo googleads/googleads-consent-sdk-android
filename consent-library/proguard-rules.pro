@@ -23,3 +23,6 @@
 -keep class com.google.ads.consent.** { <fields>; }
 
 -keepattributes *Annotation*
+
+-keepattributes Signature
+
