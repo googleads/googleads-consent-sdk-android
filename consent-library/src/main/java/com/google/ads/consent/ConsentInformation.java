@@ -55,7 +55,7 @@ public class ConsentInformation {
         }
     }
     private static final String MOBILE_ADS_SERVER_URL =
-            "http://adservice.google.com/getconfig/pubvendors";
+            "https://adservice.google.com/getconfig/pubvendors";
     private static final String TAG = "ConsentInformation";
     private static final String PREFERENCES_FILE_KEY = "mobileads_consent";
     private static final String CONSENT_DATA_KEY = "consent_string";
