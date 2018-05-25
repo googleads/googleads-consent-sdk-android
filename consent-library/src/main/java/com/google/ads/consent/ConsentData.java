@@ -38,14 +38,14 @@ class ConsentData {
     @SerializedName("pub_ids")
     private HashSet<String> publisherIds;
 
-    @SerializedName("has_any_npa_wp")
+    @SerializedName("has_any_npa_pub_id")
     private boolean hasNonPersonalizedPublisherId;
 
     @SerializedName("consent_source")
     private String consentSource;
 
     @SerializedName("version")
-    private final String sdkVersionString = "1.0.2";
+    private final String sdkVersionString = "1.0.3";
 
     @SerializedName("plat")
     private final String sdkPlatformString = "android";
