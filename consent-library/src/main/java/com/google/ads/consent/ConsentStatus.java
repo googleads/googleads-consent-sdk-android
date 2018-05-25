@@ -27,4 +27,6 @@ public enum ConsentStatus {
     NON_PERSONALIZED,
     @SerializedName("personalized")
     PERSONALIZED,
+    @SerializedName("ad_free_preferred")
+    AD_FREE_PREFERRED,
 }

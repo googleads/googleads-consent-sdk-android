@@ -478,7 +478,7 @@ public class ConsentInformation {
 
     protected synchronized void setConsentStatus(ConsentStatus consentStatus, String source) {
         ConsentData consentData = this.loadConsentData();
-        if (consentStatus == ConsentStatus.UNKNOWN) {
+        if ((consentStatus == ConsentStatus.UNKNOWN) || ( consentStatus == ConsentStatus.AD_FREE_PREFERRED)) {
             consentData.setConsentedAdProviders(new HashSet<AdProvider>());
         } else {
             consentData.setConsentedAdProviders(consentData.getAdProviders());

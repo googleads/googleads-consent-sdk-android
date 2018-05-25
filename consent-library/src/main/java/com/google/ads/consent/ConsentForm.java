@@ -319,7 +319,7 @@ public class ConsentForm {
                 break;
             case "ad_free":
                 userPrefersAdFree = true;
-                consentStatus = ConsentStatus.UNKNOWN;
+                consentStatus = ConsentStatus.AD_FREE_PREFERRED;
                 break;
             default:
                 consentStatus = ConsentStatus.UNKNOWN;
