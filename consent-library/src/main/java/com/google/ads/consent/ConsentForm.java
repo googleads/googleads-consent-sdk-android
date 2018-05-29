@@ -78,7 +78,6 @@ public class ConsentForm {
 
         this.webView = new WebView(context);
         this.webView.setBackgroundColor(Color.TRANSPARENT);
-        this.webView.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
         this.dialog.setContentView(webView);
         this.dialog.setCancelable(false);
         webView.getSettings().setJavaScriptEnabled(true);
