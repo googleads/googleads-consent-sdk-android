@@ -20,6 +20,10 @@ import java.util.HashSet;
 
 class ConsentData {
 
+    private static final String SDK_PLATFORM = "android";
+
+    private static final String SDK_VERSION = "1.0.4";
+
     @SerializedName("providers")
     private HashSet<AdProvider> adProviders;
 
@@ -45,10 +49,10 @@ class ConsentData {
     private String consentSource;
 
     @SerializedName("version")
-    private final String sdkVersionString = "1.0.3";
+    private final String sdkVersionString;
 
     @SerializedName("plat")
-    private final String sdkPlatformString = "android";
+    private final String sdkPlatformString;
 
     @SerializedName("raw_response")
     private String rawResponse;
@@ -61,6 +65,8 @@ class ConsentData {
         this.consentStatus = ConsentStatus.UNKNOWN;
         this.isRequestLocationInEeaOrUnknown = false;
         this.hasNonPersonalizedPublisherId = false;
+        this.sdkVersionString = SDK_VERSION;
+        this.sdkPlatformString = SDK_PLATFORM;
         this.rawResponse = "";
     }
 

@@ -17,6 +17,7 @@ package com.google.ads.consent;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,10 +74,11 @@ public class ConsentForm {
         this.nonPersonalizedAdsOption = builder.nonPersonalizedAdsOption;
         this.adFreeOption = builder.adFreeOption;
         this.appPrivacyPolicyURL = builder.appPrivacyPolicyURL;
-        this.dialog = new Dialog(context);
+        this.dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.loadState = LoadState.NOT_READY;
 
         this.webView = new WebView(context);
+        this.webView.setBackgroundColor(Color.TRANSPARENT);
         this.dialog.setContentView(webView);
         this.dialog.setCancelable(false);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -290,8 +292,12 @@ public class ConsentForm {
             return;
         }
 
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
-        context.startActivity(browserIntent);
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+            context.startActivity(browserIntent);
+        } catch (ActivityNotFoundException exception) {
+            listener.onConsentFormError("No Activity found to handle browser intent.");
+        }
     }
 
     private void handleDismiss(String status) {
