@@ -619,15 +619,6 @@
       if (!adNetworks) {
         throw Error('Error: invalid ad networks.');
       }
-
-      // All ad networks must have publisher_consent_type `2`.
-      for (var i = 0; i < adNetworks.length; i++) {
-        var adNetwork = adNetworks[i];
-        var publisherConsentType = adNetwork['publisher_consent_type'] || 0;
-        if (publisherConsentType != 2) {
-          throw Error('Error: consent form can be used with custom provider selection only.');
-        }
-      }
     }
 
     function setUpConsentDialog(argsDictionary) {

@@ -22,7 +22,7 @@ class ConsentData {
 
     private static final String SDK_PLATFORM = "android";
 
-    private static final String SDK_VERSION = "1.0.5";
+    private static final String SDK_VERSION = "1.0.6";
 
     @SerializedName("providers")
     private HashSet<AdProvider> adProviders;
