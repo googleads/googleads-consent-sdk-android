@@ -1,6 +1,9 @@
 Android Consent SDK Change Log
 ===============================
 
+### Version 1.0.7
+- Fixed an issue with `Locale` causing crashes on certain Samsung devices.
+
 ### Version 1.0.6
 - Removed restriction on using Google rendered consent form with
 the commonly used set of ad technology providers.
