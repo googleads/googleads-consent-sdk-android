@@ -740,7 +740,7 @@
 
       // Hide unavailable options.
       var hasValidProviderCount = providersLen > 0;
-      if (hasValidProviderCount) {
+      if (hasValidProviderCount && document.getElementById('providers_count') != null) {
         document.getElementById('providers_count').innerText = providersLen;
       }
       var hasAnyNonPersonalizedOnlyPubId = consentInfo['has_any_npa_pub_id'] || false;

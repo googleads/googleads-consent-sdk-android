@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Utility methods for collecting consent from users.
@@ -80,7 +79,7 @@ public class ConsentInformation {
         return instance;
     }
 
-    private String getHashedDeviceId() {
+  protected String getHashedDeviceId() {
         ContentResolver contentResolver = context.getContentResolver();
         String androidId =
             contentResolver == null
@@ -97,7 +96,7 @@ public class ConsentInformation {
             try {
                 MessageDigest md5 = MessageDigest.getInstance("MD5");
                 md5.update(string.getBytes());
-                return String.format(Locale.US, "%032X", new BigInteger(1, md5.digest()));
+        return String.format("%032X", new BigInteger(1, md5.digest()));
             } catch (NoSuchAlgorithmException e) {
                 // Try again.
             } catch (ArithmeticException ex) {
