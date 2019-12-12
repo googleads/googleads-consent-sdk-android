@@ -1,5 +1,7 @@
 Android Consent SDK Change Log
 ===============================
+### Version 1.0.8
+- Changed logic for re-consent prompts.
 
 ### Version 1.0.7
 - Fixed an issue with `Locale` causing crashes on certain Samsung devices.
