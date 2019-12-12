@@ -12,13 +12,13 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pgcfg'
+            consumerProguardFiles 'proguard-rules.pgcfg'
         }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            consumerProguardFiles 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pgcfg'
+            consumerProguardFiles 'proguard-rules.pgcfg'
         }
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

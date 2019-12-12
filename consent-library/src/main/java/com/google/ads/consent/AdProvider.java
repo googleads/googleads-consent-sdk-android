@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Ad provider information.
  */
-public class AdProvider {
+public final class AdProvider {
 
     @SerializedName("company_id")
     private String id;
@@ -67,15 +67,13 @@ public class AdProvider {
 
         AdProvider that = (AdProvider) o;
 
-        return id.equals(that.id) && name.equals(that.name)
-            && privacyPolicyUrlString.equals(that.privacyPolicyUrlString);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + privacyPolicyUrlString.hashCode();
+
         return result;
     }
 }

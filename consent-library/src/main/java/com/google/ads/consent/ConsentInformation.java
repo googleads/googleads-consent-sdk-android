@@ -431,7 +431,7 @@ public class ConsentInformation {
             return;
         }
 
-        if (!consentData.getAdProviders().equals(consentData.getConsentedAdProviders())
+        if (!consentData.getConsentedAdProviders().containsAll(consentData.getAdProviders())
             || hasNonPersonalizedPublisherIdChanged) {
             consentData.setConsentSource("sdk");
             consentData.setConsentStatus(ConsentStatus.UNKNOWN);
