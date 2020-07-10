@@ -368,6 +368,6 @@ public class ConsentForm {
     }
     
     public void dismiss() {
-        this.dialog.dismiss()
+        this.dialog.dismiss();
     }
 }
