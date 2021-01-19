@@ -50,6 +50,7 @@ public class ConsentForm {
     private final boolean personalizedAdsOption;
     private final boolean nonPersonalizedAdsOption;
     private final boolean adFreeOption;
+    private final String titleHeadIntro;
     private final URL appPrivacyPolicyURL;
     private final Dialog dialog;
     private final WebView webView;
@@ -73,6 +74,7 @@ public class ConsentForm {
         this.personalizedAdsOption = builder.personalizedAdsOption;
         this.nonPersonalizedAdsOption = builder.nonPersonalizedAdsOption;
         this.adFreeOption = builder.adFreeOption;
+        this.titleHeadIntro = builder.titleHeadIntro;
         this.appPrivacyPolicyURL = builder.appPrivacyPolicyURL;
         this.dialog = new Dialog(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.loadState = LoadState.NOT_READY;
@@ -171,6 +173,7 @@ public class ConsentForm {
         private boolean personalizedAdsOption;
         private boolean nonPersonalizedAdsOption;
         private boolean adFreeOption;
+        private String titleHeadIntro = "";
         private final URL appPrivacyPolicyURL;
 
         public Builder(Context context, URL appPrivacyPolicyURL) {
@@ -203,6 +206,11 @@ public class ConsentForm {
 
         public Builder withAdFreeOption() {
             this.adFreeOption = true;
+            return this;
+        }
+
+        public Builder titleHeadIntro(String titleText) {
+            this.titleHeadIntro = titleText;
             return this;
         }
 
@@ -241,6 +249,7 @@ public class ConsentForm {
         HashMap <String, Object> formInfo = new HashMap < > ();
         formInfo.put("app_name", getApplicationName(context));
         formInfo.put("app_icon", getAppIconURIString(context));
+        formInfo.put("title_head_intro", this.titleHeadIntro);
         formInfo.put("offer_personalized", this.personalizedAdsOption);
         formInfo.put("offer_non_personalized", this.nonPersonalizedAdsOption);
         formInfo.put("offer_ad_free", this.adFreeOption);
