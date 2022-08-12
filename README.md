@@ -1,5 +1,9 @@
 # Google Mobile Ads Consent SDK
 
+*This SDK is no longer being maintained. We recommend using the
+[User Messaging Platform SDK](https://developers.google.com/admob/ump/android/quick-start)
+instead.*
+
 Under the Google [EU User Consent
 Policy](//google.com/about/company/consentstaging.html), you must make certain
 disclosures to your users in the European Economic Area (EEA) and obtain their
