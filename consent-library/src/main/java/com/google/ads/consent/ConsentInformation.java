@@ -64,6 +64,8 @@ public class ConsentInformation {
     private List<String> testDevices;
     private String hashedDeviceId;
     private DebugGeography debugGeography;
+    private int httpConnectTimeout = 5000;
+    private int httpReadTimeout = 5000;
 
     private ConsentInformation(Context context) {
         this.context = context.getApplicationContext();
@@ -194,16 +196,22 @@ public class ConsentInformation {
         private final ConsentInformation consentInformation;
         private final List<String> publisherIds;
         private final ConsentInfoUpdateListener listener;
+        private final int httpConnectTimeout;
+        private final int httpReadTimeout;
 
         ConsentInfoUpdateTask(
             String url,
             ConsentInformation consentInformation,
             List<String> publisherIds,
-            ConsentInfoUpdateListener listener) {
+            ConsentInfoUpdateListener listener,
+            int httpConnectTimeout,
+            int httpReadTimeout) {
             this.url = url;
             this.listener = listener;
             this.publisherIds = publisherIds;
             this.consentInformation = consentInformation;
+            this.httpConnectTimeout = httpConnectTimeout;
+            this.httpReadTimeout = httpReadTimeout;
         }
 
         private String readStream(InputStream inputStream) {
@@ -235,6 +243,8 @@ public class ConsentInformation {
                 URL url = new URL(urlString);
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(httpConnectTimeout);
+                urlConnection.setReadTimeout(httpReadTimeout);
                 if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     String responseString = readStream(urlConnection.getInputStream());
                     urlConnection.disconnect();
@@ -316,7 +326,8 @@ public class ConsentInformation {
                       + getHashedDeviceId()
                       + "\") to get test ads on this device.");
         }
-        new ConsentInfoUpdateTask(url, this, Arrays.asList(publisherIds), listener)
+        new ConsentInfoUpdateTask(url, this, Arrays.asList(publisherIds), listener,
+                httpConnectTimeout, httpReadTimeout)
               .execute();
     }
 
@@ -491,5 +502,13 @@ public class ConsentInformation {
     public synchronized ConsentStatus getConsentStatus() {
         ConsentData consentData = loadConsentData();
         return consentData.getConsentStatus();
+    }
+
+    public void setHttpConnectTimeoutMillis(final int value) {
+        this.httpConnectTimeout = value;
+    }
+
+    public void setHttpReadTimeoutMillis(final int value) {
+        this.httpReadTimeout = value;
     }
 }
