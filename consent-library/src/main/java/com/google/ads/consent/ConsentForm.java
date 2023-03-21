@@ -366,4 +366,8 @@ public class ConsentForm {
     public boolean isShowing() {
         return this.dialog.isShowing();
     }
+    
+    public void dismiss() {
+        this.dialog.dismiss();
+    }
 }
