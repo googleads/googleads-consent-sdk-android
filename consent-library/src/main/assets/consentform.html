@@ -703,6 +703,17 @@
         obj.titleAppNameEl.parentNode.insertBefore(appIconEl, obj.titleAppNameEl);
       }
 
+      // Set title head intro.
+      var titleIntro = formInfo['title_head_intro'] || '';
+      if (titleIntro.length <= 0) {
+        formLoadCompleted('Error: invalid title head intro.');
+      } else {
+       var titleHeadIntroEl = document.getElementsByClassName('head_intro');
+       for (var i = 0; i < titleHeadIntroEl.length; i++) {
+         titleHeadIntroEl[i].innerText = titleIntro;
+        }
+      }
+
       // Returns an onclick handler that opens a URL in a browser.
       function createPolicyUrlOnClick(url) {
         return function() {
